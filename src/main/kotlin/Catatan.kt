@@ -1,5 +1,7 @@
 package com.kelompok5.async
 
+import kotlinx.coroutines.*
+
 class Catatan(val judul: String, val isi: String)
 
 class PengelolaCatatan {
@@ -16,6 +18,13 @@ class PengelolaCatatan {
             println("Isi\t\t: ${catatan.isi}")
         }
     }
+
+    suspend fun tampilkanCatatanAsync() {
+        withContext(Dispatchers.Default) {
+            delay(1000) // Simulate some asynchronous work
+            tampilkanCatatan()
+        }
+    }
 }
 
 fun main() {
@@ -30,5 +39,12 @@ fun main() {
     pengelolaCatatan.tambahCatatan(note2)
 
     pengelolaCatatan.tampilkanCatatan()
+    println("====================")
 
+    println("Menampilkan catatan secara asynchronous...")
+    runBlocking {
+        pengelolaCatatan.tampilkanCatatanAsync()
+    }
+    println("Catatan telah ditampilkan.")
 }
+
