@@ -1,6 +1,7 @@
 package com.kelompok5.async
 
 import kotlinx.coroutines.*
+import java.util.Scanner
 
 class Catatan(val judul: String, val isi: String)
 
@@ -27,24 +28,54 @@ class PengelolaCatatan {
     }
 }
 
-fun main() {
+suspend fun main() {
     // Debugging punya Haidar, boleh dihapus
 
-    val pengelolaCatatan = PengelolaCatatan()
+//    val pengelolaCatatan = PengelolaCatatan()
+//
+//    val note1 = Catatan("Sarapan", "Menu sarapan pagi ini adalah bubur ayam")
+//    val note2 = Catatan("Mudik", "Lusa akan mudik ke ngawi")
+//
+//    pengelolaCatatan.tambahCatatan(note1)
+//    pengelolaCatatan.tambahCatatan(note2)
+//
+//    pengelolaCatatan.tampilkanCatatan()
+//    println("====================")
+//
+//    println("Menampilkan catatan secara asynchronous...")
+//    runBlocking {
+//        pengelolaCatatan.tampilkanCatatanAsync()
+//    }
+//    println("Catatan telah ditampilkan.")
+    val scanner = Scanner(System.`in`)
+    val pengelola = PengelolaCatatan()
 
-    val note1 = Catatan("Sarapan", "Menu sarapan pagi ini adalah bubur ayam")
-    val note2 = Catatan("Mudik", "Lusa akan mudik ke ngawi")
-
-    pengelolaCatatan.tambahCatatan(note1)
-    pengelolaCatatan.tambahCatatan(note2)
-
-    pengelolaCatatan.tampilkanCatatan()
-    println("====================")
-
-    println("Menampilkan catatan secara asynchronous...")
-    runBlocking {
-        pengelolaCatatan.tampilkanCatatanAsync()
+    while (true) {
+        println("Menu:")
+        println("1. Tambah Catatan")
+        println("2. Tampilkan Daftar Catatan")
+        println("3. Keluar")
+        print("Pilih menu: ")
+        when (scanner.nextInt()) {
+            1 -> {
+                print("Masukkan judul catatan: ")
+                val judul = scanner.next()
+                print("Masukkan isi catatan: ")
+                val isi = scanner.next()
+                pengelola.tambahCatatan(Catatan(judul, isi))
+            }
+            2 -> {
+                println("Menampilkan daftar catatan...")
+                pengelola.tampilkanCatatanAsync()
+            }
+            3 -> {
+                println("Keluar dari program.")
+                return
+            }
+            else -> {
+                println("Pilihan tidak valid.")
+            }
+        }
     }
-    println("Catatan telah ditampilkan.")
 }
 
