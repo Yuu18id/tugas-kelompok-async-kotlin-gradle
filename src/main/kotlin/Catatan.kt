@@ -21,7 +21,7 @@ class PengelolaCatatan {
 
     suspend fun tampilkanCatatanAsync() {
         withContext(Dispatchers.Default) {
-            delay(1000) // Simulate some asynchronous work
+            delay(1000)
             tampilkanCatatan()
         }
     }
