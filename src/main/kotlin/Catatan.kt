@@ -58,10 +58,11 @@ suspend fun main() {
         print("Pilih menu: ")
         when (scanner.nextInt()) {
             1 -> {
+                scanner.nextLine()
                 print("Masukkan judul catatan: ")
-                val judul = scanner.next()
+                val judul = scanner.nextLine()
                 print("Masukkan isi catatan: ")
-                val isi = scanner.next()
+                val isi = scanner.nextLine()
                 pengelola.tambahCatatan(Catatan(judul, isi))
             }
             2 -> {
